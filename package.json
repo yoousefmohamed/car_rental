@@ -1,0 +1,79 @@
+{
+  "name": "car-rental-erp",
+  "version": "2.0.0",
+  "description": "نظام إدارة تأجير السيارات - Car Rental ERP",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron . --maximized",
+    "start:dev": "electron . --inspect=9229",
+    "postinstall": "electron-rebuild -f -w better-sqlite3",
+    "build": "electron-builder --win --x64 --publish never",
+    "build:portable": "electron-builder --win portable --x64 --publish never",
+    "build:mac:arm64": "electron-builder --mac dmg --arm64 --publish never",
+    "build:mac:x64": "electron-builder --mac dmg --x64 --publish never"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^3.6.0",
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "com.carrental.erp",
+    "productName": "نظام تأجير السيارات",
+    "copyright": "Copyright © 2026",
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "asarUnpack": [
+      "**/*.node"
+    ],
+    "files": [
+      "**/*",
+      "!dist/**",
+      "!*.md"
+    ],
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "mac": {
+      "target": [
+        { "target": "dmg" }
+      ],
+      "category": "public.app-category.business",
+      "icon": "assets/icon.icns",
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false,
+      "identity": null,
+      "darkModeSupport": true,
+      "minimumSystemVersion": "10.15.0",
+      "extendInfo": {
+        "CFBundleDisplayName": "نظام تأجير السيارات",
+        "NSHumanReadableCopyright": "Copyright © 2026"
+      }
+    },
+    "dmg": {
+      "title": "نظام تأجير السيارات",
+      "contents": [
+        { "x": 130, "y": 220, "type": "file" },
+        { "x": 410, "y": 220, "type": "link", "path": "/Applications" }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerLanguages": ["ar"],
+      "language": "1025",
+      "shortcutName": "نظام تأجير السيارات",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
